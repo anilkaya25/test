@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pirates of the Seven Seas</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Auth Screen -->
+    <div id="auth-screen" class="screen">
+        <div class="auth-container">
+            <h1 class="game-title">Pirates of the Seven Seas</h1>
+            <div class="skull-icon">☠</div>
+
+            <div id="login-form" class="auth-form">
+                <h2>Login</h2>
+                <form onsubmit="game.login(event)">
+                    <input type="text" id="login-username" placeholder="Username" required>
+                    <input type="password" id="login-password" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Set Sail!</button>
+                </form>
+                <p class="auth-switch">New pirate? <a href="#" onclick="game.showRegister()">Register here</a></p>
+            </div>
+
+            <div id="register-form" class="auth-form hidden">
+                <h2>Register</h2>
+                <form onsubmit="game.register(event)">
+                    <input type="text" id="register-username" placeholder="Username" required>
+                    <input type="email" id="register-email" placeholder="Email" required>
+                    <input type="password" id="register-password" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Join the Crew!</button>
+                </form>
+                <p class="auth-switch">Already a pirate? <a href="#" onclick="game.showLogin()">Login here</a></p>
+            </div>
+
+            <div id="auth-error" class="error-message hidden"></div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen hidden">
+        <!-- Top Navigation Bar -->
+        <nav class="top-nav">
+            <div class="nav-left">
+                <span class="island-name" id="island-name">Tortuga</span>
+                <span class="coords" id="island-coords">[0:0]</span>
+            </div>
+            <div class="resources-bar">
+                <div class="resource">
+                    <span class="resource-icon gold-icon">🪙</span>
+                    <span id="gold-amount">0</span>
+                    <span class="production">(+<span id="gold-production">0</span>/h)</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon rum-icon">🍺</span>
+                    <span id="rum-amount">0</span>
+                    <span class="production">(+<span id="rum-production">0</span>/h)</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon wood-icon">🪵</span>
+                    <span id="wood-amount">0</span>
+                    <span class="production">(+<span id="wood-production">0</span>/h)</span>
+                </div>
+                <div class="resource">
+                    <span class="resource-icon iron-icon">⚙️</span>
+                    <span id="iron-amount">0</span>
+                    <span class="production">(+<span id="iron-production">0</span>/h)</span>
+                </div>
+            </div>
+            <div class="nav-right">
+                <span class="score">Score: <span id="total-score">0</span></span>
+                <span class="username" id="username">Pirate</span>
+                <button class="btn-logout" onclick="game.logout()">Logout</button>
+            </div>
+        </nav>
+
+        <!-- Main Navigation -->
+        <div class="main-nav">
+            <button class="nav-btn active" data-view="overview" onclick="game.switchView('overview')">
+                <span class="nav-icon">🏝️</span> Overview
+            </button>
+            <button class="nav-btn" data-view="buildings" onclick="game.switchView('buildings')">
+                <span class="nav-icon">🏗️</span> Buildings
+            </button>
+            <button class="nav-btn" data-view="shipyard" onclick="game.switchView('shipyard')">
+                <span class="nav-icon">⚓</span> Shipyard
+            </button>
+            <button class="nav-btn" data-view="research" onclick="game.switchView('research')">
+                <span class="nav-icon">📜</span> Research
+            </button>
+            <button class="nav-btn" data-view="fleet" onclick="game.switchView('fleet')">
+                <span class="nav-icon">🚢</span> Fleet
+            </button>
+            <button class="nav-btn" data-view="galaxy" onclick="game.switchView('galaxy')">
+                <span class="nav-icon">🗺️</span> Galaxy
+            </button>
+            <button class="nav-btn" data-view="reports" onclick="game.switchView('reports')">
+                <span class="nav-icon">⚔️</span> Reports
+            </button>
+            <button class="nav-btn" data-view="rankings" onclick="game.switchView('rankings')">
+                <span class="nav-icon">🏆</span> Rankings
+            </button>
+        </div>
+
+        <!-- Content Area -->
+        <main class="content">
+            <!-- Overview View -->
+            <section id="view-overview" class="view active">
+                <div class="view-header">
+                    <h2>Island Overview</h2>
+                    <button class="btn-rename" onclick="game.renameIsland()">Rename Island</button>
+                </div>
+
+                <div class="overview-grid">
+                    <div class="overview-card">
+                        <h3>🏗️ Current Construction</h3>
+                        <div id="current-construction">
+                            <p class="empty-state">No construction in progress</p>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h3>⚓ Ship Queue</h3>
+                        <div id="ship-queue-overview">
+                            <p class="empty-state">No ships being built</p>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h3>📜 Current Research</h3>
+                        <div id="current-research">
+                            <p class="empty-state">No research in progress</p>
+                        </div>
+                    </div>
+
+                    <div class="overview-card">
+                        <h3>🚢 Active Missions</h3>
+                        <div id="active-missions">
+                            <p class="empty-state">No active missions</p>
+                        </div>
+                    </div>
+
+                    <div class="overview-card wide">
+                        <h3>⚓ Your Fleet</h3>
+                        <div id="fleet-overview" class="fleet-grid">
+                            <!-- Ships will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buildings View -->
+            <section id="view-buildings" class="view hidden">
+                <div class="view-header">
+                    <h2>Buildings</h2>
+                </div>
+                <div id="buildings-grid" class="buildings-grid">
+                    <!-- Buildings will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Shipyard View -->
+            <section id="view-shipyard" class="view hidden">
+                <div class="view-header">
+                    <h2>Shipyard</h2>
+                    <span id="shipyard-level-info">Shipyard Level: 0</span>
+                </div>
+                <div class="shipyard-queue" id="shipyard-queue">
+                    <!-- Queue will be rendered here -->
+                </div>
+                <div id="ships-grid" class="ships-grid">
+                    <!-- Ships will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Research View -->
+            <section id="view-research" class="view hidden">
+                <div class="view-header">
+                    <h2>Pirate Academy</h2>
+                    <span id="academy-level-info">Academy Level: 0</span>
+                </div>
+                <div id="research-grid" class="research-grid">
+                    <!-- Research will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Fleet View -->
+            <section id="view-fleet" class="view hidden">
+                <div class="view-header">
+                    <h2>Fleet Command</h2>
+                </div>
+
+                <div class="fleet-command">
+                    <div class="mission-form">
+                        <h3>Send Fleet</h3>
+                        <div class="form-group">
+                            <label>Mission Type:</label>
+                            <select id="mission-type">
+                                <option value="attack">Attack</option>
+                                <option value="transport">Transport</option>
+                                <option value="spy">Spy</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Target X:</label>
+                                <input type="number" id="target-x" min="1" max="500" value="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Target Y:</label>
+                                <input type="number" id="target-y" min="1" max="500" value="1">
+                            </div>
+                        </div>
+
+                        <h4>Select Ships</h4>
+                        <div id="fleet-ship-selection" class="ship-selection">
+                            <!-- Ships will be rendered here -->
+                        </div>
+
+                        <div id="cargo-section" class="cargo-section">
+                            <h4>Cargo (Transport Only)</h4>
+                            <div class="cargo-inputs">
+                                <div class="cargo-input">
+                                    <label>🪙 Gold:</label>
+                                    <input type="number" id="cargo-gold" min="0" value="0">
+                                </div>
+                                <div class="cargo-input">
+                                    <label>🍺 Rum:</label>
+                                    <input type="number" id="cargo-rum" min="0" value="0">
+                                </div>
+                                <div class="cargo-input">
+                                    <label>🪵 Wood:</label>
+                                    <input type="number" id="cargo-wood" min="0" value="0">
+                                </div>
+                                <div class="cargo-input">
+                                    <label>⚙️ Iron:</label>
+                                    <input type="number" id="cargo-iron" min="0" value="0">
+                                </div>
+                            </div>
+                            <p class="cargo-capacity">Cargo Capacity: <span id="cargo-capacity">0</span></p>
+                        </div>
+
+                        <button class="btn-primary" onclick="game.sendFleet()">Launch Mission</button>
+                    </div>
+
+                    <div class="active-missions-panel">
+                        <h3>Active Missions</h3>
+                        <div id="fleet-missions-list">
+                            <!-- Missions will be rendered here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Galaxy View -->
+            <section id="view-galaxy" class="view hidden">
+                <div class="view-header">
+                    <h2>Galaxy Map</h2>
+                </div>
+                <div class="galaxy-controls">
+                    <div class="coord-range">
+                        <label>X: </label>
+                        <input type="number" id="galaxy-min-x" value="1" min="1" max="500">
+                        <span>to</span>
+                        <input type="number" id="galaxy-max-x" value="50" min="1" max="500">
+                    </div>
+                    <div class="coord-range">
+                        <label>Y: </label>
+                        <input type="number" id="galaxy-min-y" value="1" min="1" max="500">
+                        <span>to</span>
+                        <input type="number" id="galaxy-max-y" value="50" min="1" max="500">
+                    </div>
+                    <button class="btn-secondary" onclick="game.loadGalaxy()">Search</button>
+                </div>
+                <div id="galaxy-grid" class="galaxy-grid">
+                    <!-- Galaxy will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Reports View -->
+            <section id="view-reports" class="view hidden">
+                <div class="view-header">
+                    <h2>Battle Reports</h2>
+                </div>
+                <div id="reports-list" class="reports-list">
+                    <!-- Reports will be rendered here -->
+                </div>
+            </section>
+
+            <!-- Rankings View -->
+            <section id="view-rankings" class="view hidden">
+                <div class="view-header">
+                    <h2>Pirate Rankings</h2>
+                </div>
+                <div id="rankings-table" class="rankings-table">
+                    <!-- Rankings will be rendered here -->
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="game-footer">
+            <p>Pirates of the Seven Seas &copy; 2024</p>
+        </footer>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="modal-close" onclick="game.closeModal()">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <!-- Toast notifications -->
+    <div id="toast-container"></div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,1258 @@
+/* CSS Variables */
+:root {
+    --primary-color: #8B4513;
+    --primary-dark: #5D2E0C;
+    --primary-light: #A0522D;
+    --secondary-color: #DAA520;
+    --secondary-light: #FFD700;
+    --bg-dark: #1a1a2e;
+    --bg-darker: #16213e;
+    --bg-card: #0f3460;
+    --bg-card-light: #1a4f7a;
+    --text-primary: #f5f5f5;
+    --text-secondary: #b0b0b0;
+    --text-gold: #FFD700;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --danger: #e74c3c;
+    --border-color: #3a3a5a;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* Reset and Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="%23ffffff10"/></svg>');
+    background-size: 50px 50px;
+}
+
+/* Utility Classes */
+.hidden {
+    display: none !important;
+}
+
+/* Screens */
+.screen {
+    min-height: 100vh;
+}
+
+/* Auth Screen */
+#auth-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+}
+
+.auth-container {
+    background: var(--bg-card);
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: var(--shadow), 0 0 40px rgba(139, 69, 19, 0.3);
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    border: 2px solid var(--primary-color);
+}
+
+.game-title {
+    font-family: 'Pirata One', cursive;
+    font-size: 2.5rem;
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.skull-icon {
+    font-size: 4rem;
+    margin: 20px 0;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+.auth-form h2 {
+    color: var(--text-gold);
+    margin-bottom: 20px;
+    font-family: 'Pirata One', cursive;
+}
+
+.auth-form input {
+    width: 100%;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-darker);
+    color: var(--text-primary);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.auth-form input:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: var(--text-primary);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary-color) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(139, 69, 19, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-secondary {
+    padding: 10px 20px;
+    background: var(--bg-card-light);
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: var(--bg-card);
+    border-color: var(--secondary-color);
+}
+
+.auth-switch {
+    margin-top: 20px;
+    color: var(--text-secondary);
+}
+
+.auth-switch a {
+    color: var(--secondary-color);
+    text-decoration: none;
+}
+
+.auth-switch a:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    background: rgba(231, 76, 60, 0.2);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    padding: 10px;
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Game Screen */
+#game-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Top Navigation */
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: linear-gradient(180deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+    border-bottom: 2px solid var(--primary-color);
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.island-name {
+    font-family: 'Pirata One', cursive;
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+}
+
+.coords {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.resources-bar {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.resource {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--bg-card);
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.resource-icon {
+    font-size: 1.2rem;
+}
+
+.resource span:not(.resource-icon) {
+    font-weight: 500;
+}
+
+.production {
+    color: var(--success);
+    font-size: 0.85rem;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.score {
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+.username {
+    color: var(--text-primary);
+}
+
+.btn-logout {
+    padding: 8px 16px;
+    background: transparent;
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* Main Navigation */
+.main-nav {
+    display: flex;
+    gap: 5px;
+    padding: 10px 20px;
+    background: var(--bg-darker);
+    border-bottom: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: transparent;
+    color: var(--text-secondary);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+    white-space: nowrap;
+}
+
+.nav-btn:hover {
+    background: var(--bg-card);
+    color: var(--text-primary);
+}
+
+.nav-btn.active {
+    background: var(--primary-color);
+    color: var(--text-primary);
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+}
+
+.view-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.view-header h2 {
+    font-family: 'Pirata One', cursive;
+    font-size: 2rem;
+    color: var(--secondary-color);
+}
+
+.btn-rename {
+    padding: 8px 16px;
+    background: var(--bg-card);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-rename:hover {
+    border-color: var(--secondary-color);
+}
+
+/* Overview Grid */
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.overview-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.overview-card.wide {
+    grid-column: 1 / -1;
+}
+
+.overview-card h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.empty-state {
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.fleet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.ship-item {
+    background: var(--bg-card-light);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.ship-item .ship-icon {
+    font-size: 2rem;
+    margin-bottom: 5px;
+}
+
+.ship-item .ship-name {
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+
+.ship-item .ship-count {
+    color: var(--text-gold);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* Construction/Queue Items */
+.queue-item, .construction-item {
+    background: var(--bg-card-light);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.queue-item:last-child, .construction-item:last-child {
+    margin-bottom: 0;
+}
+
+.timer {
+    color: var(--warning);
+    font-weight: 500;
+}
+
+/* Buildings Grid */
+.buildings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.building-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s;
+}
+
+.building-card:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.building-card.upgrading {
+    border-color: var(--warning);
+}
+
+.building-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-card-light);
+}
+
+.building-icon {
+    font-size: 2.5rem;
+}
+
+.building-info h4 {
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.building-level {
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+.building-body {
+    padding: 15px;
+}
+
+.building-description {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.building-costs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.cost-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.cost-item.insufficient {
+    color: var(--danger);
+}
+
+.building-time {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.btn-upgrade {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--success) 0%, #27ae60 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-upgrade:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+.btn-upgrade:disabled {
+    background: var(--bg-card-light);
+    cursor: not-allowed;
+}
+
+.upgrade-timer {
+    text-align: center;
+    padding: 10px;
+    background: var(--warning);
+    color: var(--bg-dark);
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+/* Ships Grid */
+.ships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.ship-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.ship-card.locked {
+    opacity: 0.6;
+}
+
+.ship-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-card-light);
+}
+
+.ship-icon-large {
+    font-size: 3rem;
+}
+
+.ship-info h4 {
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.ship-owned {
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+.ship-body {
+    padding: 15px;
+}
+
+.ship-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.stat-value {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.ship-costs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.ship-build {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.ship-build input {
+    width: 80px;
+    padding: 8px;
+    background: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.btn-build {
+    flex: 1;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-build:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.btn-build:disabled {
+    background: var(--bg-card-light);
+    cursor: not-allowed;
+}
+
+.ship-requirement {
+    color: var(--danger);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Shipyard Queue */
+.shipyard-queue {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.shipyard-queue h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+/* Research Grid */
+.research-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.research-card {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.research-card.researching {
+    border-color: var(--warning);
+}
+
+.research-card.locked {
+    opacity: 0.6;
+}
+
+.research-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: var(--bg-card-light);
+}
+
+.research-icon {
+    font-size: 2.5rem;
+}
+
+.research-info h4 {
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.research-level {
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+.research-body {
+    padding: 15px;
+}
+
+.research-description {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.research-effect {
+    color: var(--success);
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}
+
+.research-costs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.btn-research {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.btn-research:hover:not(:disabled) {
+    opacity: 0.9;
+}
+
+.btn-research:disabled {
+    background: var(--bg-card-light);
+    cursor: not-allowed;
+}
+
+.research-timer {
+    text-align: center;
+    padding: 10px;
+    background: var(--warning);
+    color: var(--bg-dark);
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.research-requirement {
+    color: var(--danger);
+    font-size: 0.9rem;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Fleet Command */
+.fleet-command {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+@media (max-width: 900px) {
+    .fleet-command {
+        grid-template-columns: 1fr;
+    }
+}
+
+.mission-form {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.mission-form h3, .mission-form h4 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.mission-form h4 {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+
+.form-group select,
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    background: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+.ship-selection {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.ship-select-item {
+    background: var(--bg-card-light);
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.ship-select-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.ship-select-item .available {
+    color: var(--text-secondary);
+    font-size: 0.8rem;
+}
+
+.ship-select-item input {
+    width: 60px;
+    padding: 5px;
+    margin-top: 5px;
+    background: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.cargo-section {
+    margin: 20px 0;
+    padding: 15px;
+    background: var(--bg-card-light);
+    border-radius: 8px;
+}
+
+.cargo-section h4 {
+    margin-top: 0 !important;
+}
+
+.cargo-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.cargo-input {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cargo-input input {
+    flex: 1;
+    padding: 8px;
+    background: var(--bg-darker);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--text-primary);
+}
+
+.cargo-capacity {
+    margin-top: 10px;
+    color: var(--text-secondary);
+}
+
+.active-missions-panel {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.active-missions-panel h3 {
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+.mission-item {
+    background: var(--bg-card-light);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.mission-item:last-child {
+    margin-bottom: 0;
+}
+
+.mission-type {
+    color: var(--text-gold);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.mission-target {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.mission-status {
+    margin-top: 5px;
+}
+
+/* Galaxy View */
+.galaxy-controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.coord-range {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.coord-range input {
+    width: 70px;
+    padding: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    color: var(--text-primary);
+    text-align: center;
+}
+
+.galaxy-grid {
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.galaxy-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.galaxy-table th,
+.galaxy-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.galaxy-table th {
+    background: var(--bg-card-light);
+    color: var(--secondary-color);
+}
+
+.galaxy-table tr:hover {
+    background: var(--bg-card-light);
+}
+
+.galaxy-action {
+    padding: 6px 12px;
+    background: var(--danger);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.galaxy-action:hover {
+    opacity: 0.9;
+}
+
+/* Reports */
+.reports-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.report-item {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.report-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: var(--bg-card-light);
+    cursor: pointer;
+}
+
+.report-header:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.report-result.victory {
+    color: var(--success);
+    font-weight: bold;
+}
+
+.report-result.defeat {
+    color: var(--danger);
+    font-weight: bold;
+}
+
+.report-date {
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.report-body {
+    padding: 15px;
+    display: none;
+}
+
+.report-body.expanded {
+    display: block;
+}
+
+.report-section {
+    margin-bottom: 15px;
+}
+
+.report-section h4 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+}
+
+.loot-info {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.loot-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Rankings */
+.rankings-table {
+    background: var(--bg-card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.rankings-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.rankings-table th,
+.rankings-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.rankings-table th {
+    background: var(--bg-card-light);
+    color: var(--secondary-color);
+}
+
+.rankings-table tr:hover {
+    background: var(--bg-card-light);
+}
+
+.rank-1 {
+    color: var(--text-gold);
+    font-weight: bold;
+}
+
+.rank-2 {
+    color: #C0C0C0;
+    font-weight: bold;
+}
+
+.rank-3 {
+    color: #CD7F32;
+    font-weight: bold;
+}
+
+/* Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: var(--bg-card);
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    border: 2px solid var(--primary-color);
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+}
+
+.modal-close:hover {
+    color: var(--text-primary);
+}
+
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1001;
+}
+
+.toast {
+    background: var(--bg-card);
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: var(--shadow);
+    animation: slideIn 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+}
+
+.toast.success {
+    border-left-color: var(--success);
+}
+
+.toast.error {
+    border-left-color: var(--danger);
+}
+
+.toast.warning {
+    border-left-color: var(--warning);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Footer */
+.game-footer {
+    text-align: center;
+    padding: 15px;
+    background: var(--bg-darker);
+    color: var(--text-secondary);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .top-nav {
+        flex-direction: column;
+    }
+
+    .resources-bar {
+        order: 3;
+        justify-content: center;
+    }
+
+    .main-nav {
+        justify-content: flex-start;
+    }
+
+    .nav-btn span:not(.nav-icon) {
+        display: none;
+    }
+
+    .buildings-grid,
+    .ships-grid,
+    .research-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-darker);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-light);
+}
