@@ -371,13 +371,20 @@ class PirateGame {
 
             const isOtherUpgrading = this.gameData.buildings.some(x => x.is_upgrading && x.id !== b.id);
 
+            // Calculate production rates for production buildings
+            const isProduction = this.isProductionBuilding(b.effect_type);
+            const currentProduction = isProduction ? this.calculateProduction(b.effect_value, b.level) : 0;
+            const nextProduction = isProduction ? this.calculateProduction(b.effect_value, b.level + 1) : 0;
+            const productionIncrease = nextProduction - currentProduction;
+            const prodIcon = this.getProductionIcon(b.effect_type);
+
             return `
                 <div class="building-card ${b.is_upgrading ? 'upgrading' : ''}">
                     <div class="building-header">
                         <div class="building-icon">${this.buildingIcons[b.name] || '🏗️'}</div>
                         <div class="building-info">
                             <h4>${b.name}</h4>
-                            <span class="building-level">Level ${b.level}</span>
+                            <span class="building-level">Level ${b.level}${isProduction ? ` <span class="production-rate">(${prodIcon} ${this.formatNumber(currentProduction)}/hr)</span>` : ''}</span>
                         </div>
                     </div>
                     <div class="building-body">
@@ -392,7 +399,7 @@ class PirateGame {
                         ${b.is_upgrading ?
                             `<div class="upgrade-timer" data-finish="${b.upgrade_finish_time}">Loading...</div>` :
                             `<button class="btn-upgrade" ${!canAfford || isOtherUpgrading ? 'disabled' : ''} onclick="game.upgradeBuilding(${b.id})">
-                                Upgrade to Level ${b.level + 1}
+                                Upgrade to Level ${b.level + 1}${isProduction ? ` <span class="production-bonus">(+${this.formatNumber(productionIncrease)}/hr)</span>` : ''}
                             </button>`
                         }
                     </div>
@@ -990,6 +997,28 @@ class PirateGame {
         const hours = Math.floor(seconds / 3600);
         const mins = Math.floor((seconds % 3600) / 60);
         return `${hours}h ${mins}m`;
+    }
+
+    // Calculate production rate for a building at a given level
+    calculateProduction(effectValue, level) {
+        if (level <= 0) return 0;
+        return Math.floor(effectValue * level * Math.pow(1.1, level - 1));
+    }
+
+    // Check if building is a production building
+    isProductionBuilding(effectType) {
+        return ['gold_production', 'rum_production', 'wood_production', 'iron_production'].includes(effectType);
+    }
+
+    // Get production icon based on effect type
+    getProductionIcon(effectType) {
+        const icons = {
+            'gold_production': '🪙',
+            'rum_production': '🍺',
+            'wood_production': '🪵',
+            'iron_production': '⚙️'
+        };
+        return icons[effectType] || '';
     }
 
     showToast(message, type = 'info') {

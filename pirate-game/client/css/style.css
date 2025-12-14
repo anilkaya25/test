@@ -474,6 +474,20 @@ body {
     font-weight: bold;
 }
 
+.production-rate {
+    color: #4ecdc4;
+    font-size: 0.85em;
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.production-bonus {
+    color: #2ecc71;
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
 .building-body {
     padding: 15px;
 }
